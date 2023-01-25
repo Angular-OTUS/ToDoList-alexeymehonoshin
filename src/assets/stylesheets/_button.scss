@@ -1,0 +1,31 @@
+.button {
+  padding: 10px 15px;
+  border: none;
+  color: #ffffff;
+  border-radius: 20px;
+  font-size: 14px;
+  font-family: inherit;
+  font-style: normal;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  &--add {
+    background: #25D500;
+  }
+
+  &--delete {
+    background: #F60018;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+
+    &:hover {
+      cursor: unset;
+      opacity: 0.5;
+    }
+  }
+}

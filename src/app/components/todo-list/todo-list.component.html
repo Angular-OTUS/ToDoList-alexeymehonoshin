@@ -7,7 +7,8 @@
     <mat-list>
       <todo-list-item *ngFor="let item of items" [item]="item" (item-deleted)="deleteItem($event)"></todo-list-item>
     </mat-list>
-
-    <todo-list-item-new (item-created)="createItem($event)"></todo-list-item-new>
   </mat-card-content>
+  <mat-card-footer>
+    <todo-list-item-new (item-created)="createItem($event)"></todo-list-item-new>
+  </mat-card-footer>
 </mat-card>

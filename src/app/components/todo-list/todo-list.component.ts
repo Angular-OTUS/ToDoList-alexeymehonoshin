@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TodoListItem } from '../../interfaces/todo-list-item.interface';
 
 const dummyItems: TodoListItem[] = [
@@ -13,7 +13,7 @@ const dummyItems: TodoListItem[] = [
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss']
 })
-export class TodoListComponent {
+export class TodoListComponent implements OnInit {
   items: TodoListItem[] = [];
 
   ngOnInit() {

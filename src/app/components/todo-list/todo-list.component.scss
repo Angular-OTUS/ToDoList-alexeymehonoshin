@@ -2,5 +2,12 @@
   display: flex;
   justify-content: center;
 
-  mat-card { max-width: 400px; }
+  mat-card {
+    max-width: 400px;
+
+    &-footer {
+      padding-right: 16px;
+      padding-left: 16px;
+    }
+  }
 }

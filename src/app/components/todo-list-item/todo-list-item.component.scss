@@ -3,6 +3,12 @@
     padding: 5px 0px;
     height: auto;
 
-    .todo-list-item__text { white-space: normal; }
+    .todo-list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &__text { white-space: normal; }
+    }
   }
 }

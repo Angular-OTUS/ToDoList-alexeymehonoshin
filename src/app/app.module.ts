@@ -5,17 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule  } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 
+import { AppComponent } from './app.component';
 import {
-  AppComponent,
   TodoListComponent,
   TodoListItemComponent,
-  TodoListItemNewComponent
+  TodoListItemNewComponent,
 } from './components/index';
 
 @NgModule({
@@ -23,20 +21,16 @@ import {
     AppComponent,
     TodoListComponent,
     TodoListItemComponent,
-    TodoListItemNewComponent
+    TodoListItemNewComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-
     BrowserAnimationsModule,
-
-    MatButtonModule,
     MatInputModule,
-    MatFormFieldModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
