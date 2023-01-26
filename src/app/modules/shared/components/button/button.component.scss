@@ -1,0 +1,34 @@
+:host {
+    .app-button {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 20px;
+        font-size: 14px;
+        font-family: inherit;
+        font-style: normal;
+        color: #ffffff;
+        background: #808080;
+    
+        &:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+    
+        &--primary {
+            background: #25D500;
+        }
+    
+        &--warning {
+            background: #F60018;
+        }
+    
+        &:disabled {
+            opacity: 0.5;
+    
+            &:hover {
+                cursor: unset;
+                opacity: 0.5;
+            }
+        }
+    }
+}

@@ -1,0 +1,54 @@
+:host {
+  $circle-size: 40px;
+  $circle-stroke-color: #3f3f3f;
+
+  .circle {
+    height: $circle-size;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    width: $circle-size;
+  }
+
+  .circle__svg {
+    animation: 2s linear infinite both circle__svg;
+  }
+
+  @keyframes circle__svg {
+    0% {
+      transform: rotateZ(0deg);
+    }
+    100% {
+      transform: rotateZ(360deg)
+    }
+  }
+
+  .circle__svg-circle {
+    animation: 1.2s ease-in-out infinite both circle__svg-circle;
+    fill: transparent;
+    stroke: $circle-stroke-color;
+    stroke-dasharray: 285;
+    stroke-linecap: round;
+    stroke-width: 3px;
+    transform-origin: 50% 50%;
+  }
+
+  @keyframes circle__svg-circle {
+    0%, 25% {
+      stroke-dashoffset: 280;
+      transform: rotate(0);
+    }
+    
+    50%, 75% {
+      stroke-dashoffset: 75;
+      transform: rotate(45deg);
+    }
+    
+    100% {
+      stroke-dashoffset: 280;
+      transform: rotate(360deg);
+    }
+  }
+}
