@@ -1,5 +1,10 @@
 <mat-form-field appearance="outline">
-  <mat-label>Новая задача</mat-label>
+  <mat-label>Описание</mat-label>
   <input matInput [(ngModel)]="title"/>
 </mat-form-field>
-<app-button color="primary" (click)="onCreate()" [disabled]="!isValid()">Добавить</app-button>
+
+<mat-form-field appearance="outline">
+  <textarea matInput placeholder="Текст" [(ngModel)]="description"></textarea>
+</mat-form-field>
+
+<app-button color="primary" (click)="onCreate()" [disabled]="!isValid()" tooltip="Добавить новую задачу в список">Добавить</app-button>
