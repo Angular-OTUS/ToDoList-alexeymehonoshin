@@ -6,21 +6,44 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./todo-list-item-new.component.scss'],
 })
 export class TodoListItemNewComponent {
-  title ='';
+  title = '';
+  description = '';
 
-  private minTitleLength = 1;
-  private maxTitleLength = 500;
-
-  @Output() itemCreated = new EventEmitter<string>();
-
-  isValid(): boolean {
-    const title = this.title.trim();
-    
-    return title.length >= this.minTitleLength && title.length <= this.maxTitleLength;
-  }
+  @Output() itemCreated = new EventEmitter<{ title: string, description: string }>();
 
   onCreate() {
-    this.itemCreated.emit(this.title.trim());
+    this.itemCreated.emit({
+      title: this.title.trim(),
+      description: this.description.trim(),
+    });
     this.title = '';
+    this.description = '';
+  }
+
+  isValid(): boolean {
+    return this.isTitleValid() && this.isDescriptionValid();
+  }
+
+  private minTitleLength = 1;
+  private maxTitleLength = 100;
+  private minDescriptionLength = 1;
+  private maxDescriptionLength = 500;
+
+  private isDescriptionValid(): boolean {
+    const description = this.description.trim();
+    
+    if (description.length < this.minDescriptionLength) return false;
+    if (description.length > this.maxDescriptionLength) return false;
+
+    return true;
+  }
+
+  private isTitleValid(): boolean {
+    const title = this.title.trim();
+    
+    if (title.length < this.minTitleLength) return false;
+    if (title.length > this.maxTitleLength) return false;
+
+    return true
   }
 }
