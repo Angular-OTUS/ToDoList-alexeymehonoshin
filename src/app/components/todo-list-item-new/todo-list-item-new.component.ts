@@ -6,16 +6,16 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./todo-list-item-new.component.scss']
 })
 export class TodoListItemNewComponent {
-  text: string = '';
-  private minTextLength = 1;
-  private maxTextLength = 500;
+  title: string = '';
+  private minTitleLength = 1;
+  private maxTitleLength = 500;
 
   @Output('item-created') itemCreated = new EventEmitter<string>();
 
   isValid(): boolean {
-    const text = this.text.trim();
+    const title = this.title.trim();
     
-    return text.length >= this.minTextLength && text.length <= this.maxTextLength;
+    return title.length >= this.minTitleLength && title.length <= this.maxTitleLength;
   }
 
   isInvalid(): boolean {
@@ -23,7 +23,7 @@ export class TodoListItemNewComponent {
   }
 
   onCreate() {
-    this.itemCreated.emit(this.text.trim());
-    this.text = '';
+    this.itemCreated.emit(this.title.trim());
+    this.title = '';
   }
 }

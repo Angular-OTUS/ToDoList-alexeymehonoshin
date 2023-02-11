@@ -1,6 +1,4 @@
-<mat-list-item>
-  <div class="todo-list-item">
-    <span class="todo-list-item__text">{{item.text}}</span>
-    <button class="button button--delete" (click)="onDelete(item.id)">Удалить</button>
-  </div>
-</mat-list-item>
+<div class="todo-list-item">
+  <span class="todo-list-item__title">{{item.title}}</span>
+  <button class="button button--delete" (click)="onDelete(item.id)">Удалить</button>
+</div>

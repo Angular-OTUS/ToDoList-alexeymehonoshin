@@ -1,14 +1,10 @@
-:host {
-  mat-list-item {
-    padding: 5px 0px;
-    height: auto;
+.todo-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    .todo-list-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      &__text { white-space: normal; }
-    }
+  &__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
