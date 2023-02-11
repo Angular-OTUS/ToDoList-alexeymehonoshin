@@ -7,6 +7,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class TodoListItemNewComponent {
   title: string = '';
+
   private minTitleLength = 1;
   private maxTitleLength = 500;
 
