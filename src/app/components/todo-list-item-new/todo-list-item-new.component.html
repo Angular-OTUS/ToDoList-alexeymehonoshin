@@ -1,0 +1,5 @@
+<mat-form-field appearance="outline">
+  <mat-label>Новая задача</mat-label>
+  <input matInput [(ngModel)]="title"/>
+</mat-form-field>
+<button (click)="onCreate()" [disabled]="isInvalid()" class="button button--add">Добавить</button>
