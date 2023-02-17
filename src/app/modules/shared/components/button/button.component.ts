@@ -10,8 +10,4 @@ type ButtonColors = 'primary' | 'warning' | undefined;
 export class ButtonComponent {
   @Input() color: ButtonColors;
   @Input() disabled = false;
-
-  cssClass(): string {
-    return this.color ? `app-button app-button--${this.color}` : 'app-button';
-  }
 }

@@ -4,8 +4,7 @@
   </mat-card-header>
   
   <mat-card-content>
-    <app-spinner *ngIf="isLoading"></app-spinner>
-    <mat-list *ngIf="!isLoading">
+    <mat-list *ngIf="!isLoading; else loadingSpinner">
       <mat-list-item *ngFor="let item of items">
         <app-todo-list-item [item]="item" (itemDeleted)="deleteItem($event)"></app-todo-list-item>
       </mat-list-item>
@@ -15,3 +14,7 @@
     <app-todo-list-item-new (itemCreated)="createItem($event)"></app-todo-list-item-new>
   </mat-card-footer>
 </mat-card>
+
+<ng-template #loadingSpinner>
+  <app-spinner></app-spinner>
+</ng-template>

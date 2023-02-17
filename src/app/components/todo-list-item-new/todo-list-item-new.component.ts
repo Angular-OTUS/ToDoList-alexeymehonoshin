@@ -19,10 +19,6 @@ export class TodoListItemNewComponent {
     return title.length >= this.minTitleLength && title.length <= this.maxTitleLength;
   }
 
-  isInvalid(): boolean {
-    return !this.isValid();
-  }
-
   onCreate() {
     this.itemCreated.emit(this.title.trim());
     this.title = '';

@@ -2,4 +2,4 @@
   <mat-label>Новая задача</mat-label>
   <input matInput [(ngModel)]="title"/>
 </mat-form-field>
-<app-button color="primary" (click)="onCreate()" [disabled]="isInvalid()">Добавить</app-button>
+<app-button color="primary" (click)="onCreate()" [disabled]="!isValid()">Добавить</app-button>
