@@ -16,6 +16,7 @@ import {
   TodoListItemComponent,
   TodoListItemNewComponent,
 } from './components/index';
+import { TooltipComponent } from './modules/shared/components/tooltip/tooltip.component';
 
 @NgModule({
   declarations: [

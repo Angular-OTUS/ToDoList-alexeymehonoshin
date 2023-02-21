@@ -1,13 +1,13 @@
 :host {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 20px;
+  flex-direction: column;
   
   mat-form-field {
     padding-right: 10px;
     width: 100%;
   }
 
-  app-button { margin-top: -20px; }
+  app-button {
+    align-self: end;
+  }
 }
