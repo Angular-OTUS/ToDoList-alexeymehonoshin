@@ -5,19 +5,21 @@ const dummyItems: TodoListItem[] = [
   { id: 0, title: 'Задача 1' },
   { id: 1, title: 'Задача 2 Очень длинное описание задачи, отображающееся на нескольких строчках' },
   { id: 2, title: 'Задача 3' },
-  { id: 3, title: 'Задача 4' }
+  { id: 3, title: 'Задача 4' },
 ];
 
 @Component({
-  selector: 'todo-list',
+  selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss']
+  styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit {
   items: TodoListItem[] = [];
+  isLoading = true;
 
   ngOnInit() {
     this.items = dummyItems;
+    setTimeout(() => this.isLoading = false, 500);
   }
 
   createItem(title: string) {

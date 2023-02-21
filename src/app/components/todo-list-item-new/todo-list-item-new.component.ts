@@ -1,25 +1,22 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'todo-list-item-new',
+  selector: 'app-todo-list-item-new',
   templateUrl: './todo-list-item-new.component.html',
-  styleUrls: ['./todo-list-item-new.component.scss']
+  styleUrls: ['./todo-list-item-new.component.scss'],
 })
 export class TodoListItemNewComponent {
-  title: string = '';
+  title ='';
+
   private minTitleLength = 1;
   private maxTitleLength = 500;
 
-  @Output('item-created') itemCreated = new EventEmitter<string>();
+  @Output() itemCreated = new EventEmitter<string>();
 
   isValid(): boolean {
     const title = this.title.trim();
     
     return title.length >= this.minTitleLength && title.length <= this.maxTitleLength;
-  }
-
-  isInvalid(): boolean {
-    return !this.isValid();
   }
 
   onCreate() {

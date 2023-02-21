@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { SharedModule } from './modules/shared/shared.module';
 
 import { AppComponent } from './app.component';
 import {
@@ -31,8 +32,11 @@ import {
     MatInputModule,
     MatCardModule,
     MatListModule,
+    SharedModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+  ],
 })
 export class AppModule { }
