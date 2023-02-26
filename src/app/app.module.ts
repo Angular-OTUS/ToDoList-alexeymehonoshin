@@ -11,7 +11,14 @@ import { MatListModule } from '@angular/material/list';
 import { SharedModule } from './modules/shared/shared.module';
 
 import { AppComponent } from './app.component';
-import { TodoListComponent, TodoListItemComponent, TodoListItemNewComponent } from './components/index';
+import {
+  TodoListComponent,
+  TodoListItemComponent,
+  TodoListItemNewComponent,
+  TodoListItemInlineEditComponent,
+  ToastsComponent,
+} from './components/index';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +26,8 @@ import { TodoListComponent, TodoListItemComponent, TodoListItemNewComponent } fr
     TodoListComponent,
     TodoListItemComponent,
     TodoListItemNewComponent,
+    TodoListItemInlineEditComponent,
+    ToastsComponent,
   ],
   imports: [
     BrowserModule,

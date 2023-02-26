@@ -1,0 +1,4 @@
+<div class="inline-edit">
+  <input class="inline-edit__title" type="text" [(ngModel)]="title">
+  <app-button color="primary" (click)="onItemInlineUpdate()" [disabled]="!isValid()" [tooltip]="'Обновить описание задачи'">Сохранить</app-button>
+</div>
