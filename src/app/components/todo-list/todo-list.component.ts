@@ -1,28 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoListItemService } from 'src/app/services/todo-list-item.service';
 import { TodoListItem } from '../../interfaces/todo-list-item.interface';
 
-const dummyItems: TodoListItem[] = [
-  {
-    id: 0,
-    title: 'Описание задачи 1',
-    description: 'Текст задачи 1',
-  },
-  {
-    id: 1,
-    title: 'Очень длинное описание задачи 2',
-    description: 'Текст задачи 2 Очень длинное описание задачи, отображающееся на нескольких строчках',
-  },
-  {
-    id: 2,
-    title: 'Описание задачи 3',
-    description: 'Текст задачи 3',
-  },
-  {
-    id: 3,
-    title: 'Описание задачи 4',
-    description: 'Текст задачи 4',
-  },
-];
+type CreatedFields = Omit<TodoListItem, 'id'>;
+type ItemId = TodoListItem['id'];
 
 @Component({
   selector: 'app-todo-list',
@@ -31,19 +12,23 @@ const dummyItems: TodoListItem[] = [
 })
 export class TodoListComponent implements OnInit {
   items: TodoListItem[] = [];
-  selectedItem: TodoListItem | undefined = undefined;
+  selectedItem?: TodoListItem;
   isLoading = true;
 
+  constructor(
+    private todoListItemService: TodoListItemService
+  ) {}
+
   ngOnInit(): void {
-    this.items = dummyItems;
+    this.items = this.todoListItemService.fetchItems();
     setTimeout(() => this.isLoading = false, 500);
   }
 
-  selectItem(itemId: number | null): void {
-    if (itemId === undefined) {
+  selectItem(id?: ItemId): void {
+    if (id === undefined) {
       this.selectedItem = undefined;
     } else {
-      this.selectedItem = this.items.find(item => item.id === itemId);
+      this.selectedItem = this.items.find(item => item.id === id);
     }
   }
 
@@ -51,22 +36,21 @@ export class TodoListComponent implements OnInit {
     this.selectedItem = undefined;
   }
 
-  createItem(data: { title: string, description: string }): void {
-    let maxId = (this.items[0]?.id || 0);
-    this.items.forEach(item => maxId = item.id > maxId ? item.id : maxId);
-
-    this.items.push({
-      id: maxId + 1,
-      title: data.title,
-      description: data.description,
-    });
+  createItem(data: CreatedFields): void {
+    this.todoListItemService.create(data);
+    this.refreshItems();
   }
 
-  deleteItem(itemId: number): void {
-    this.items = this.items.filter(item => item.id !== itemId);
+  deleteItem(id: ItemId): void {
+    this.todoListItemService.delete(id);
+    this.refreshItems();
 
-    if (this.selectedItem?.id === itemId) {
+    if (this.selectedItem?.id === id) {
       this.selectedItem = undefined;
     }
+  }
+
+  private refreshItems() {
+    this.items = this.todoListItemService.fetchItems();
   }
 }
