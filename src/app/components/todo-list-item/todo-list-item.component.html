@@ -1,10 +1,11 @@
 <div class="todo-list-item" [class.todo-list-item--selected]="isSelected">
-  <ng-container *ngIf="!isInlineEdited; else inlineEdit">
-    <span class="todo-list-item__title" tooltip="Открыть детальный просмотр задачи">{{item.title}}</span>
+  <ng-container *ngIf="!isTitleEditVisible; else titleEdit">
+    <mat-checkbox [checked]="isCompleted()" (change)="toggleStatus()" color="main" tooltip="Сменить статус задачи"></mat-checkbox>
+    <span class="todo-list-item__title" (dblclick)="showTitleEdit()" tooltip="Открыть детальный просмотр задачи">{{item.title}}</span>
     <app-button color="warning" (click)="onDelete(item.id)" tooltip="Удалить задачу из списка">Удалить</app-button>
   </ng-container>
 </div>
 
-<ng-template #inlineEdit>
-  <app-todo-list-item-inline-edit (itemInlineUpdated)="onInlineUpdate($event)" [title]="item.title"></app-todo-list-item-inline-edit>
+<ng-template #titleEdit>
+  <app-todo-list-item-title-edit (titleUpdated)="updateTitle($event)" [title]="item.title"></app-todo-list-item-title-edit>
 </ng-template>

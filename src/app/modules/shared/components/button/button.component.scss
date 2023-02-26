@@ -1,3 +1,5 @@
+@import '../../../../../assets/colors.scss';
+
 button {
     padding: 10px 15px;
     border: none;
@@ -5,8 +7,8 @@ button {
     font-size: 14px;
     font-family: inherit;
     font-style: normal;
-    color: #ffffff;
-    background: #808080;
+    color: $color-white;
+    background: $color-gray-medium;
 
     &:hover {
         cursor: pointer;
@@ -15,35 +17,35 @@ button {
 
     &.link {
         background: transparent;
-        color: #808080;
+        color: $color-gray-medium;
         border: none;
         padding: 10px 0px;
 
         &.primary {
-            color: #25D500;
+            color: $color-green-medium;
         }
 
         &.warning {
-            color: #F60018;
+            color: $color-red-medium;
         }
     }
 
     &.flat {
-        color: #ffffff;
+        color: $color-white;
         padding: 10px 15px;
         border: none;
         border-radius: 20px;
 
         &.basic {
-            background: #808080;
+            background: $color-gray-medium;
         }
 
         &.primary {
-            background: #25D500;
+            background: $color-green-medium;
         }
         
         &.warning {
-            background: #F60018;
+            background: $color-red-medium;
         }
     }
 

@@ -1,10 +1,12 @@
-<mat-form-field appearance="outline">
-  <mat-label>Описание</mat-label>
-  <input matInput [(ngModel)]="title"/>
-</mat-form-field>
+<form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
+  <mat-form-field appearance="outline">
+    <mat-label>Описание</mat-label>
+    <input matInput [(ngModel)]="title" name="title" required minlength=1 maxlength=10/>
+  </mat-form-field>
 
-<mat-form-field appearance="outline">
-  <textarea matInput placeholder="Текст" [(ngModel)]="description"></textarea>
-</mat-form-field>
+  <mat-form-field appearance="outline">
+    <textarea matInput placeholder="Текст" [(ngModel)]="description" name="description" required minlength=1 maxlength=500></textarea>
+  </mat-form-field>
 
-<app-button color="primary" (click)="onCreate()" [disabled]="!isValid()" tooltip="Добавить новую задачу в список">Добавить</app-button>
+  <app-button color="primary" [disabled]="form.invalid" [tooltip]="'Добавить новую задачу в список'">Добавить</app-button>
+</form>

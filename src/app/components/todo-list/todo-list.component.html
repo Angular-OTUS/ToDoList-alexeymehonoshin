@@ -1,18 +1,24 @@
 <mat-card class="todo-list">
   <mat-card-header>
     <mat-card-title>Список задач</mat-card-title>
+    <mat-form-field appearance="fill">
+      <mat-label>Фильтр</mat-label>
+      <mat-select [(ngModel)]="filterByStatus" (ngModelChange)="loadTodoListItems()">
+        <mat-option value="">Все</mat-option>
+        <mat-option value={{statuses.InProgress}}>В процессе</mat-option>
+        <mat-option value={{statuses.Completed}}>Завершённые</mat-option>
+      </mat-select>
+    </mat-form-field>
   </mat-card-header>
   
   <mat-card-content>
-    <mat-list *ngIf="!isLoading; else loadingSpinner">
+    <mat-list class="todo-list-items" *ngIf="!isLoading; else loadingSpinner" >
       <mat-list-item *ngFor="let item of items">
         <app-todo-list-item [item]="item"
                             [isSelected]="item.id === selectedItemId"
-                            [isInlineEdited]="item.id === inlineEditedItemId"
                             (click)="selectItem(item.id)"
-                            (dblclick)="showInlineEditItem(item.id)"
-                            (itemInlineUpdated)="hideInlineEditItem()"
                             (itemDeleted)="deleteItem($event)"></app-todo-list-item>
+
       </mat-list-item>
     </mat-list>
   </mat-card-content>
@@ -24,6 +30,7 @@
 <mat-card class="todo-list__details">
   <ng-container *ngIf="selectedItem">
     <mat-card-header>
+      <span></span>
       <mat-card-title>{{ selectedItem.title }}</mat-card-title>
       <app-button type="link" class="todo-list__details--close" (click)="unselectItem()" tooltip="Закрыть детальный просмотр задачи">Закрыть</app-button>
     </mat-card-header>

@@ -1,19 +1,19 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-todo-list-item-inline-edit',
-  templateUrl: './todo-list-item-inline-edit.component.html',
-  styleUrls: ['./todo-list-item-inline-edit.component.scss'],
+  selector: 'app-todo-list-item-title-edit',
+  templateUrl: './todo-list-item-title-edit.component.html',
+  styleUrls: ['./todo-list-item-title-edit.component.scss'],
 })
-export class TodoListItemInlineEditComponent {
+export class TodoListItemTitleEditComponent {
   @Input() title = '';
-  @Output() itemInlineUpdated = new EventEmitter<string>();
+  @Output() titleUpdated = new EventEmitter<string>();
 
   private minTitleLength = 1;
   private maxTitleLength = 100;
 
-  onItemInlineUpdate() {
-    this.itemInlineUpdated.emit(this.title);
+  onTitleUpdate() {
+    this.titleUpdated.emit(this.title);
   }
 
   isValid(): boolean {

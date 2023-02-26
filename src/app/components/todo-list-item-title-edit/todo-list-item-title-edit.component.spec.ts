@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TodoListItemInlineEditComponent } from './todo-list-item-inline-edit.component';
+import { TodoListItemTitleEditComponent } from './todo-list-item-title-edit.component';
 
 describe('TodoListItemInlineEditComponent', () => {
-  let component: TodoListItemInlineEditComponent;
-  let fixture: ComponentFixture<TodoListItemInlineEditComponent>;
+  let component: TodoListItemTitleEditComponent;
+  let fixture: ComponentFixture<TodoListItemTitleEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TodoListItemInlineEditComponent ],
+      declarations: [ TodoListItemTitleEditComponent ],
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TodoListItemInlineEditComponent);
+    fixture = TestBed.createComponent(TodoListItemTitleEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

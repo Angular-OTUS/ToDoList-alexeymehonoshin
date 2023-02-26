@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TodoListItem, TodoListItemId, TodoListItemInput } from '../../interfaces/todo-list-item.interface';
 import { ToastService } from 'src/app/services/toast.service';
 import { TodoListItemService } from 'src/app/services/todo-list-item.service';
+import { TodoListItemStatuses } from 'src/app/enums/todo-list-item-statuses.enum';
 
 @Component({
   selector: 'app-todo-list',
@@ -11,8 +12,9 @@ import { TodoListItemService } from 'src/app/services/todo-list-item.service';
 export class TodoListComponent implements OnInit {
   items: TodoListItem[] = [];
   selectedItemId: TodoListItemId | null = null;
-  inlineEditedItemId?: TodoListItemId | null = null;
   isLoading = true;
+  filterByStatus: TodoListItemStatuses | '' = '';
+  statuses = TodoListItemStatuses;
 
   constructor(
     private todoListItemService: TodoListItemService,
@@ -21,9 +23,13 @@ export class TodoListComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.items = this.todoListItemService.getItems();
+      this.loadTodoListItems();
       this.isLoading = false;
     }, 500);
+  }
+
+  loadTodoListItems() {
+    this.todoListItemService.getAll$(this.filterByStatus).subscribe(items => this.items = items);
   }
 
   get selectedItem(): TodoListItem | null {
@@ -42,34 +48,22 @@ export class TodoListComponent implements OnInit {
     this.selectedItemId = null;
   }
 
-  showInlineEditItem(id: TodoListItemId): void {
-    this.inlineEditedItemId = id;
-  }
-
-  hideInlineEditItem(): void {
-    this.inlineEditedItemId = null;
-  }
-
-  createItem(data: TodoListItemInput): void {
-    const item = this.todoListItemService.create(data);
-
-    if (item) {
-      this.items.push(item);
-      this.toastsService.showToast('Создано', item.id);
-    }
+  createItem(data: Omit<TodoListItemInput, 'status'>): void {
+    this.todoListItemService.create$(data)
+      .subscribe(item => {
+        this.items.push(item);
+        this.toastsService.showSuccessToast('Задача добавлена');
+      });
   }
 
   deleteItem(id: TodoListItemId): void {
-    const isDeleted = this.todoListItemService.delete(id);
-
-    if (isDeleted) {
-      this.items = this.items.filter(item => item.id !== id);
-
-      if (this.selectedItemId === id) {
-        this.unselectItem();
-      }
-
-      this.toastsService.showToast('Удалено', id);
-    }
+    this.todoListItemService.delete$(id)
+      .subscribe(() => {
+        this.items = this.items.filter(item => item.id !== id);
+        if (this.selectedItem?.id === id) {
+          this.unselectItem();
+        }
+        this.toastsService.showSuccessToast('Задача удалена');
+      });
   }
 }
