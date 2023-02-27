@@ -28,13 +28,14 @@ export class TodoListItemComponent {
     this.toggleInlineUpdated();
   }
 
-  onSelect(id: ItemId): void {
+  @HostListener('click')
+  onClick(): void {
     if (this.isInlineEdited) return;
 
     if (this.isSelected) {
       this.itemSelected.emit(undefined);
     } else {
-      this.itemSelected.emit(id);
+      this.itemSelected.emit(this.item.id);
     }
   }
 
@@ -43,10 +44,13 @@ export class TodoListItemComponent {
   }
 
   onUpdate(title: string): void {
-    this.todoListItemService.update(this.item.id, title);
-    this.item.title = title;
+    if (this.item.title !== title) {
+      this.todoListItemService.update(this.item.id, title);
+      this.item.title = title;
+      this.toastsService.show('Обновлено', this.item.title);
+    }
+
     this.toggleInlineUpdated();
-    this.toastsService.show('Добавлено', this.item.title);
   }
 
   toggleInlineUpdated(): void {
