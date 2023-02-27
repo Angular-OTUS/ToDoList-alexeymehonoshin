@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastService } from 'src/app/services/toast.service';
 import { TodoListItemService } from 'src/app/services/todo-list-item.service';
 import { TodoListItem } from '../../interfaces/todo-list-item.interface';
 
@@ -16,11 +17,12 @@ export class TodoListComponent implements OnInit {
   isLoading = true;
 
   constructor(
-    private todoListItemService: TodoListItemService
+    private todoListItemService: TodoListItemService,
+    private toastsService: ToastService,
   ) {}
 
   ngOnInit(): void {
-    this.items = this.todoListItemService.fetchItems();
+    this.items = this.todoListItemService.getItems();
     setTimeout(() => this.isLoading = false, 500);
   }
 
@@ -39,6 +41,7 @@ export class TodoListComponent implements OnInit {
   createItem(data: CreatedFields): void {
     this.todoListItemService.create(data);
     this.refreshItems();
+    this.toastsService.show('Создано', data.title);
   }
 
   deleteItem(id: ItemId): void {
@@ -51,6 +54,6 @@ export class TodoListComponent implements OnInit {
   }
 
   private refreshItems() {
-    this.items = this.todoListItemService.fetchItems();
+    this.items = this.todoListItemService.getItems();
   }
 }

@@ -8,7 +8,7 @@ describe('TodoListItemInlineEditComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TodoListItemInlineEditComponent ]
+      declarations: [ TodoListItemInlineEditComponent ],
     })
     .compileComponents();
 

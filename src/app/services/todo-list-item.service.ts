@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { TodoListItem } from '../interfaces/todo-list-item.interface';
 import { v4 as uuid } from 'uuid';
 
-type UpdatedFields = Partial<Omit<TodoListItem, 'id'>>;
-type CreatedFields = Omit<TodoListItem, 'id'>;
 type ItemId = TodoListItem['id'];
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TodoListItemService {
   private items: TodoListItem[] = [
@@ -33,38 +31,30 @@ export class TodoListItemService {
     },
   ];
 
-  fetchItems(): TodoListItem[] {
+  getItems(): TodoListItem[] {
     return this.items;
   }
 
-  update(id: ItemId, updatedFields: UpdatedFields): boolean {
-    let result = false;
-
-    for(let item of this.items) {
-      if (item.id !== id) continue;
-
-     // Object.keys(updatedFields).forEach(field => item[field] = updatedFields[field]);
-
-      result = true;
-      break;
-    };
-
-    return result;
+  update(id: ItemId, title: string): void {
+    for(const item of this.items) {
+      if (item.id === id) {
+        item.title = title;
+        break;
+      }
+    }
   }
 
   delete(id: ItemId): void {
     this.items = this.items.filter(item => item.id !== id);
   }
 
-  create(createdFields: CreatedFields) {
-    let maxId = (this.items[0]?.id || 0);
-    
-    this.items.forEach(item => maxId = item.id > maxId ? item.id : maxId);
-
-    this.items.push({
+  create(data: Omit<TodoListItem, 'id'>) {
+    const item = {
       id: uuid(),
-      title: createdFields.title,
-      description: createdFields.description,
-    });
+      title: data.title,
+      description: data.description,
+    };
+
+    this.items.push(item);
   }
 }

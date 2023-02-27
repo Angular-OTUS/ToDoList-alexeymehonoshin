@@ -3,7 +3,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-todo-list-item-inline-edit',
   templateUrl: './todo-list-item-inline-edit.component.html',
-  styleUrls: ['./todo-list-item-inline-edit.component.scss']
+  styleUrls: ['./todo-list-item-inline-edit.component.scss'],
 })
 export class TodoListItemInlineEditComponent {
   @Input() title = '';

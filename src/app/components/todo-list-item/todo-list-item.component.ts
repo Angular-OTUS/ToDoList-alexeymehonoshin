@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { ToastService } from 'src/app/services/toast.service';
 import { TodoListItemService } from 'src/app/services/todo-list-item.service';
 import { TodoListItem } from '../../interfaces/todo-list-item.interface';
 
@@ -18,7 +19,8 @@ export class TodoListItemComponent {
   isInlineEdited = false;
 
   constructor(
-    private todoListItemService: TodoListItemService
+    private todoListItemService: TodoListItemService,
+    private toastsService: ToastService,
   ) {}
 
   @HostListener('dblclick')
@@ -41,9 +43,10 @@ export class TodoListItemComponent {
   }
 
   onUpdate(title: string): void {
-    this.todoListItemService.update(this.item.id, { title });
+    this.todoListItemService.update(this.item.id, title);
     this.item.title = title;
     this.toggleInlineUpdated();
+    this.toastsService.show('Добавлено', this.item.title);
   }
 
   toggleInlineUpdated(): void {
