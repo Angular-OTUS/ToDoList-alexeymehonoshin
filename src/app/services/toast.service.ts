@@ -8,19 +8,19 @@ import { Toast } from '../interfaces/toast.interface';
 export class ToastService {
   private toasts: Toast[] = [];
 
-  show(title: string, message: string, duration = 3000): void {
+  showToast(title: string, message: string, duration = 3000): void {
     const id = uuid();
   
     this.toasts.push({ id, title, message });
 
-    setTimeout(() => { this.remove(id) }, duration);
+    setTimeout(() => { this.removeToast(id) }, duration);
   }
 
   getToasts(): Toast[] {
     return this.toasts;
   }
 
-  remove(id: string): void {
+  removeToast(id: string): void {
     this.toasts = this.toasts.filter(toast => toast.id !== id);
   }
 }

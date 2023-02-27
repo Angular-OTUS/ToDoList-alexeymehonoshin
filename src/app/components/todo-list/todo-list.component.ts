@@ -41,7 +41,7 @@ export class TodoListComponent implements OnInit {
   createItem(data: CreatedFields): void {
     this.todoListItemService.create(data);
     this.refreshItems();
-    this.toastsService.show('Создано', data.title);
+    this.toastsService.showToast('Создано', data.title);
   }
 
   deleteItem(id: ItemId): void {

@@ -47,7 +47,7 @@ export class TodoListItemComponent {
     if (this.item.title !== title) {
       this.todoListItemService.update(this.item.id, title);
       this.item.title = title;
-      this.toastsService.show('Обновлено', this.item.title);
+      this.toastsService.showToast('Обновлено', this.item.title);
     }
 
     this.toggleInlineUpdated();

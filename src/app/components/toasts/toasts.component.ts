@@ -16,7 +16,7 @@ export class ToastsComponent {
     return this.toastService.getToasts();
   }
 
-  remove(id: string) {
-    this.toastService.remove(id);
+  removeToast(id: string) {
+    this.toastService.removeToast(id);
   }
 }
