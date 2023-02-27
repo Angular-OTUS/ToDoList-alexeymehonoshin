@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { TodoListItemService } from 'src/app/services/todo-list-item.service';
 import { TodoListItem } from '../../interfaces/todo-list-item.interface';
 
 type ItemId = TodoListItem['id'];
@@ -14,15 +15,38 @@ export class TodoListItemComponent {
   @Output() itemSelected = new EventEmitter<ItemId>();
   @Output() itemDeleted = new EventEmitter<ItemId>();
 
-  onSelect(itemId: ItemId) {
+  isInlineEdited = false;
+
+  constructor(
+    private todoListItemService: TodoListItemService
+  ) {}
+
+  @HostListener('dblclick')
+  onDblClick(): void {
+    this.toggleInlineUpdated();
+  }
+
+  onSelect(id: ItemId): void {
+    if (this.isInlineEdited) return;
+
     if (this.isSelected) {
       this.itemSelected.emit(undefined);
     } else {
-      this.itemSelected.emit(itemId);
+      this.itemSelected.emit(id);
     }
   }
 
-  onDelete(itemId: ItemId) {
-    this.itemDeleted.emit(itemId);
+  onDelete(id: ItemId): void {
+    this.itemDeleted.emit(id);
+  }
+
+  onUpdate(title: string): void {
+    this.todoListItemService.update(this.item.id, { title });
+    this.item.title = title;
+    this.toggleInlineUpdated();
+  }
+
+  toggleInlineUpdated(): void {
+    this.isInlineEdited = !this.isInlineEdited;
   }
 }

@@ -17,6 +17,7 @@ import {
   TodoListItemNewComponent,
 } from './components/index';
 import { TooltipComponent } from './modules/shared/components/tooltip/tooltip.component';
+import { TodoListItemInlineEditComponent } from './components/todo-list-item-inline-edit/todo-list-item-inline-edit.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { TooltipComponent } from './modules/shared/components/tooltip/tooltip.co
     TodoListComponent,
     TodoListItemComponent,
     TodoListItemNewComponent,
+    TodoListItemInlineEditComponent,
   ],
   imports: [
     BrowserModule,
