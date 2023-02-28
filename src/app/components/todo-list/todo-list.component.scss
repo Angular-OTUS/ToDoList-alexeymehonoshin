@@ -1,18 +1,54 @@
 :host {
   display: flex;
   justify-content: center;
+  max-height: 530px;
 
-  mat-card {
-    max-width: 400px;
+  mat-card-content {
+    overflow: scroll;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
 
-    mat-list-item {
-      padding: 5px 0px;
-      height: auto;
+  .todo-list {
+    width: 300px;
+
+    mat-card {
+      &-content {
+        padding-right: 0px;
+        padding-left: 0px;
+
+        mat-list-item {
+          padding: 5px 0px;
+          height: auto;
+        }
+      }
+
+      &-footer {
+        padding: 16px;
+      }
+    }
+  }
+
+  .todo-list__details {
+    width: 400px;
+    padding-bottom: 16px;
+
+    mat-card {
+      &-header {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &-content {
+        height: 100%;
+        padding-top: 10px;
+      }
     }
 
-    &-footer {
-      padding-right: 16px;
-      padding-left: 16px;
+    &--close {
+      button {
+        font-size: 10px;
+      }
     }
   }
 }

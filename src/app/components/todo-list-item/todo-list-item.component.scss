@@ -2,9 +2,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 16px 10px 0px;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   &__title {
-    overflow: hidden;
+    overflow-x: hidden;
     text-overflow: ellipsis;
+    margin-right: 10px;
+    padding-left: 16px;
+  }
+
+  &--selected {
+    background: #f0f0f0;
   }
 }

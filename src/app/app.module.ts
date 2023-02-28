@@ -15,6 +15,8 @@ import {
   TodoListComponent,
   TodoListItemComponent,
   TodoListItemNewComponent,
+  TodoListItemInlineEditComponent,
+  ToastsComponent,
 } from './components/index';
 
 @NgModule({
@@ -23,6 +25,8 @@ import {
     TodoListComponent,
     TodoListItemComponent,
     TodoListItemNewComponent,
+    TodoListItemInlineEditComponent,
+    ToastsComponent,
   ],
   imports: [
     BrowserModule,

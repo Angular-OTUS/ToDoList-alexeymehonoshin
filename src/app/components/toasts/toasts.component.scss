@@ -1,0 +1,29 @@
+.toasts {
+  position: fixed;
+  top: 0px;
+  right: 15px;
+  list-style: none;
+
+  .toast {
+    padding: 15px;
+    margin-bottom: 5px;
+    background: #25D500;
+    color: white;
+    width: 150px;
+    height: 40px;
+
+    display: flex;
+    flex-direction: column;
+
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &__message {
+      overflow: hidden;
+      text-overflow: ellipsis;      
+    }
+  }
+}

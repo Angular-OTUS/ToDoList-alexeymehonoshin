@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastService } from 'src/app/services/toast.service';
+import { TodoListItemService } from 'src/app/services/todo-list-item.service';
 import { TodoListItem } from '../../interfaces/todo-list-item.interface';
 
-const dummyItems: TodoListItem[] = [
-  { id: 0, title: 'Задача 1' },
-  { id: 1, title: 'Задача 2 Очень длинное описание задачи, отображающееся на нескольких строчках' },
-  { id: 2, title: 'Задача 3' },
-  { id: 3, title: 'Задача 4' },
-];
+type CreatedFields = Omit<TodoListItem, 'id'>;
+type ItemId = TodoListItem['id'];
 
 @Component({
   selector: 'app-todo-list',
@@ -15,21 +13,47 @@ const dummyItems: TodoListItem[] = [
 })
 export class TodoListComponent implements OnInit {
   items: TodoListItem[] = [];
+  selectedItem?: TodoListItem;
   isLoading = true;
 
-  ngOnInit() {
-    this.items = dummyItems;
+  constructor(
+    private todoListItemService: TodoListItemService,
+    private toastsService: ToastService,
+  ) {}
+
+  ngOnInit(): void {
+    this.items = this.todoListItemService.getItems();
     setTimeout(() => this.isLoading = false, 500);
   }
 
-  createItem(title: string) {
-    let maxId = (this.items[0]?.id || 0);
-    this.items.forEach(item => maxId = item.id > maxId ? item.id : maxId);
-
-    this.items.push({ id: maxId + 1, title });
+  selectItem(id?: ItemId): void {
+    if (id === undefined) {
+      this.selectedItem = undefined;
+    } else {
+      this.selectedItem = this.items.find(item => item.id === id);
+    }
   }
 
-  deleteItem(id: number) {
-    this.items = this.items.filter(item => item.id !== id);
+  closeItem(): void {
+    this.selectedItem = undefined;
+  }
+
+  createItem(data: CreatedFields): void {
+    this.todoListItemService.create(data);
+    this.refreshItems();
+    this.toastsService.showToast('Создано', data.title);
+  }
+
+  deleteItem(id: ItemId): void {
+    this.todoListItemService.delete(id);
+    this.refreshItems();
+
+    if (this.selectedItem?.id === id) {
+      this.selectedItem = undefined;
+    }
+  }
+
+  private refreshItems() {
+    this.items = this.todoListItemService.getItems();
   }
 }

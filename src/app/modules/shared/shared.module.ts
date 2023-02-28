@@ -6,10 +6,17 @@ import {
   SpinnerComponent,
 } from './components/index';
 
+import {
+  TooltipDirective,
+} from './directives/index';
+import { TooltipComponent } from './components/tooltip/tooltip.component';
+
 @NgModule({
   declarations: [
     ButtonComponent,
     SpinnerComponent,
+    TooltipComponent,
+    TooltipDirective,
   ],
   imports: [
     CommonModule,
@@ -17,6 +24,7 @@ import {
   exports: [
     ButtonComponent,
     SpinnerComponent,
+    TooltipDirective,
   ],
 })
 export class SharedModule { }

@@ -13,12 +13,38 @@ button {
         opacity: 0.8;
     }
 
-    &.primary {
-        background: #25D500;
+    &.link {
+        background: transparent;
+        color: #808080;
+        border: none;
+        padding: 10px 0px;
+
+        &.primary {
+            color: #25D500;
+        }
+
+        &.warning {
+            color: #F60018;
+        }
     }
 
-    &.warning {
-        background: #F60018;
+    &.flat {
+        color: #ffffff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 20px;
+
+        &.basic {
+            background: #808080;
+        }
+
+        &.primary {
+            background: #25D500;
+        }
+        
+        &.warning {
+            background: #F60018;
+        }
     }
 
     &:disabled {
