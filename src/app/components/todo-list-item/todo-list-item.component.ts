@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, HostListener } from '@angular/c
 import { ToastService } from 'src/app/services/toast.service';
 import { TodoListItemService } from 'src/app/services/todo-list-item.service';
 import { TodoListItem } from '../../interfaces/todo-list-item.interface';
+import { TodoListItemStatuses } from 'src/app/enums/todo-list-item-statuses.enum';
 
 type ItemId = TodoListItem['id'];
 
@@ -15,6 +16,7 @@ export class TodoListItemComponent {
   @Input() isSelected = false;
   @Output() itemSelected = new EventEmitter<ItemId>();
   @Output() itemDeleted = new EventEmitter<ItemId>();
+  @Output() itemStatusToggled = new EventEmitter<ItemId>();
 
   isInlineEdited = false;
 
@@ -28,8 +30,7 @@ export class TodoListItemComponent {
     this.toggleInlineUpdated();
   }
 
-  @HostListener('click')
-  onClick(): void {
+  onSelect(): void {
     if (this.isInlineEdited) return;
 
     if (this.isSelected) {
@@ -39,8 +40,8 @@ export class TodoListItemComponent {
     }
   }
 
-  onDelete(id: ItemId): void {
-    this.itemDeleted.emit(id);
+  onDelete(): void {
+    this.itemDeleted.emit(this.item.id);
   }
 
   onUpdate(title: string): void {
@@ -53,7 +54,15 @@ export class TodoListItemComponent {
     this.toggleInlineUpdated();
   }
 
+  onStatusToggle(): void {
+    this.itemStatusToggled.emit(this.item.id);
+  }
+
   toggleInlineUpdated(): void {
     this.isInlineEdited = !this.isInlineEdited;
+  }
+
+  isCompleted(): boolean {
+    return this.item.status === TodoListItemStatuses.Completed;
   }
 }

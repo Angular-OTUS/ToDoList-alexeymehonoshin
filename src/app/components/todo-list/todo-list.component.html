@@ -6,7 +6,12 @@
   <mat-card-content>
     <mat-list *ngIf="!isLoading; else loadingSpinner">
       <mat-list-item *ngFor="let item of items">
-        <app-todo-list-item [item]="item" [isSelected]="item === selectedItem" (itemDeleted)="deleteItem($event)" (itemSelected)="selectItem($event)"></app-todo-list-item>
+        <app-todo-list-item [item]="item"
+                            [isSelected]="item === selectedItem"
+                            (itemDeleted)="deleteItem($event)"
+                            (itemSelected)="selectItem($event)"
+                            (itemStatusToggled)="toggleItemStatus($event)">
+                          </app-todo-list-item>
       </mat-list-item>
     </mat-list>
   </mat-card-content>
@@ -18,6 +23,7 @@
 <mat-card class="todo-list__details">
   <ng-container *ngIf="selectedItem">
     <mat-card-header>
+      <span></span>
       <mat-card-title>{{ selectedItem.title }}</mat-card-title>
       <app-button type="link" class="todo-list__details--close" (click)="closeItem()" [tooltip]="'Закрыть детальный просмотр задачи'">Закрыть</app-button>
     </mat-card-header>

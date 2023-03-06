@@ -1,7 +1,8 @@
 <div class="todo-list-item" [class.todo-list-item--selected]="isSelected">
   <ng-container *ngIf="!isInlineEdited; else inlineEdit">
-    <span class="todo-list-item__title" [tooltip]="'Открыть детальный просмотр задачи'">{{item.title}}</span>
-    <app-button color="warning" (click)="onDelete(item.id)" [tooltip]="'Удалить задачу из списка'">Удалить</app-button>
+    <input type="checkbox" [checked]="isCompleted()" (click)="onStatusToggle()"/>
+    <span class="todo-list-item__title" (click)="onSelect()" [tooltip]="'Открыть детальный просмотр задачи'">{{item.title}}</span>
+    <app-button color="warning" (click)="onDelete()" [tooltip]="'Удалить задачу из списка'">Удалить</app-button>
   </ng-container>
 </div>
 
