@@ -39,12 +39,8 @@ export class TodoListComponent implements OnInit {
     setTimeout(() => this.isLoading = false, 500);
   }
 
-  selectItem(itemId: number | null): void {
-    if (itemId === undefined) {
-      this.selectedItem = undefined;
-    } else {
-      this.selectedItem = this.items.find(item => item.id === itemId);
-    }
+  selectItem(item: TodoListItem): void {
+    this.selectedItem = item;
   }
 
   closeItem(): void {
