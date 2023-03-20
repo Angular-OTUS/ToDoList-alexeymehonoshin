@@ -9,16 +9,7 @@ import { TodoListItem } from '../../interfaces/todo-list-item.interface';
 export class TodoListItemComponent {
   @Input() item!: TodoListItem;
   @Input() isSelected = false;
-  @Output() itemSelected = new EventEmitter<number>();
   @Output() itemDeleted = new EventEmitter<number>();
-
-  onSelect(itemId: number) {
-    if (this.isSelected) {
-      this.itemSelected.emit(undefined);
-    } else {
-      this.itemSelected.emit(itemId);
-    }
-  }
 
   onDelete(itemId: number) {
     this.itemDeleted.emit(itemId);

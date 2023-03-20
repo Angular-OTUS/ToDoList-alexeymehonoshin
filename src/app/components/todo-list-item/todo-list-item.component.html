@@ -1,4 +1,4 @@
 <div class="todo-list-item" [class.todo-list-item--selected]="isSelected">
-  <span class="todo-list-item__title" [tooltip]="'Открыть детальный просмотр задачи'">{{item.title}}</span>
-  <app-button color="warning" (click)="onDelete(item.id)" [tooltip]="'Удалить задачу из списка'">Удалить</app-button>
+  <span class="todo-list-item__title" tooltip="Открыть детальный просмотр задачи">{{item.title}}</span>
+  <app-button color="warning" (click)="onDelete(item.id)" tooltip="Удалить задачу из списка">Удалить</app-button>
 </div>
