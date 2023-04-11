@@ -7,7 +7,7 @@ import { TooltipComponent } from '../../components/tooltip/tooltip.component';
 export class TooltipDirective implements OnDestroy {
   @Input() tooltip = '';
 
-  private componentRef: ComponentRef<any> | null = null;
+  private componentRef: ComponentRef<TooltipComponent> | null = null;
 
   constructor(
     private elementRef: ElementRef,
@@ -50,7 +50,7 @@ export class TooltipDirective implements OnDestroy {
     this.componentRef = componentFactory.create(this.injector);
     this.appRef.attachView(this.componentRef.hostView);
 
-    const domElement = (this.componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
+    const domElement = (this.componentRef.hostView as EmbeddedViewRef<HTMLElement>).rootNodes[0] as HTMLElement;
     document.body.appendChild(domElement);
 
     this.componentRef.instance.tooltip = this.tooltip;

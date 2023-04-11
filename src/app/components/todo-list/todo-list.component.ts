@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoListItem } from '../../interfaces/todo-list-item.interface';
+import { TodoListItem, TodoListItemId, TodoListItemInput } from '../../interfaces/todo-list-item.interface';
 
 const dummyItems: TodoListItem[] = [
   {
@@ -31,23 +31,33 @@ const dummyItems: TodoListItem[] = [
 })
 export class TodoListComponent implements OnInit {
   items: TodoListItem[] = [];
-  selectedItem: TodoListItem | undefined = undefined;
+  selectedItemId: TodoListItemId | null = null;
   isLoading = true;
 
   ngOnInit(): void {
-    this.items = dummyItems;
-    setTimeout(() => this.isLoading = false, 500);
+    setTimeout(() => {
+      this.items = dummyItems;
+      this.isLoading = false;
+    }, 500);
   }
 
-  selectItem(item: TodoListItem): void {
-    this.selectedItem = item;
+  get selectedItem(): TodoListItem | null {
+    if (this.selectedItemId === null) {
+      return null;
+    }
+  
+    return this.items.find(item => item.id === this.selectedItemId) || null;
   }
 
-  closeItem(): void {
-    this.selectedItem = undefined;
+  selectItem(itemId: TodoListItemId): void {
+    this.selectedItemId = itemId;
   }
 
-  createItem(data: { title: string, description: string }): void {
+  unselectItem(): void {
+    this.selectedItemId = null;
+  }
+
+  createItem(data: TodoListItemInput): void {
     let maxId = (this.items[0]?.id || 0);
     this.items.forEach(item => maxId = item.id > maxId ? item.id : maxId);
 
@@ -58,11 +68,11 @@ export class TodoListComponent implements OnInit {
     });
   }
 
-  deleteItem(itemId: number): void {
+  deleteItem(itemId: TodoListItemId): void {
     this.items = this.items.filter(item => item.id !== itemId);
 
-    if (this.selectedItem?.id === itemId) {
-      this.selectedItem = undefined;
+    if (this.selectedItemId === itemId) {
+      this.unselectItem();
     }
   }
 }

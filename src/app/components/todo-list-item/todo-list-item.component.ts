@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { TodoListItem } from '../../interfaces/todo-list-item.interface';
+import { TodoListItem, TodoListItemId } from '../../interfaces/todo-list-item.interface';
 
 @Component({
   selector: 'app-todo-list-item',
@@ -11,7 +11,7 @@ export class TodoListItemComponent {
   @Input() isSelected = false;
   @Output() itemDeleted = new EventEmitter<number>();
 
-  onDelete(itemId: number) {
+  onDelete(itemId: TodoListItemId) {
     this.itemDeleted.emit(itemId);
   }
 }

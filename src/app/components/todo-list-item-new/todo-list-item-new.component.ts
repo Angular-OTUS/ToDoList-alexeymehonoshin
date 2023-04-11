@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { TodoListItemInput } from '../../interfaces/todo-list-item.interface';
 
 @Component({
   selector: 'app-todo-list-item-new',
@@ -9,7 +10,7 @@ export class TodoListItemNewComponent {
   title = '';
   description = '';
 
-  @Output() itemCreated = new EventEmitter<{ title: string, description: string }>();
+  @Output() itemCreated = new EventEmitter<TodoListItemInput>();
 
   onCreate() {
     this.itemCreated.emit({
