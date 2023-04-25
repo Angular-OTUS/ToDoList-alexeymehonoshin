@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-type ButtonColors = 'primary' | 'warning' | undefined;
+type ButtonColors = 'basic' | 'primary' | 'warning';
+type ButtonTypes = 'link' | 'flat';
 
 @Component({
   selector: 'app-button',
@@ -8,6 +9,7 @@ type ButtonColors = 'primary' | 'warning' | undefined;
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
-  @Input() color: ButtonColors;
+  @Input() color: ButtonColors = 'basic';
   @Input() disabled = false;
+  @Input() type: ButtonTypes = 'flat';
 }
