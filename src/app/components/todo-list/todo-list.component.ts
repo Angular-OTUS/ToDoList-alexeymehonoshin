@@ -35,7 +35,6 @@ export class TodoListComponent implements OnInit {
   }
 
   selectItem(id: TodoListItemId): void {
-    console.log('TodoListComponent#selectItem', id)
     this.selectedItemId = id;
   }
 

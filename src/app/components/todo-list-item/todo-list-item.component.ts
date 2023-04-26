@@ -11,6 +11,7 @@ import { TodoListItem, TodoListItemId } from '../../interfaces/todo-list-item.in
 export class TodoListItemComponent {
   @Input() item!: TodoListItem;
   @Input() isSelected = false;
+
   @Input() isInlineEdited = false;
 
   @Output() itemDeleted = new EventEmitter<TodoListItemId>();

@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { SharedModule } from './modules/shared/shared.module';
 
 import { AppComponent } from './app.component';
+
 import {
   TodoListComponent,
   TodoListItemComponent,
@@ -18,7 +19,6 @@ import {
   TodoListItemInlineEditComponent,
   ToastsComponent,
 } from './components/index';
-
 
 @NgModule({
   declarations: [
