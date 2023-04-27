@@ -1,28 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoListItem, TodoListItemId, TodoListItemInput } from '../../interfaces/todo-list-item.interface';
-
-const dummyItems: TodoListItem[] = [
-  {
-    id: 0,
-    title: 'Описание задачи 1',
-    description: 'Текст задачи 1',
-  },
-  {
-    id: 1,
-    title: 'Очень длинное описание задачи 2',
-    description: 'Текст задачи 2 Очень длинное описание задачи, отображающееся на нескольких строчках',
-  },
-  {
-    id: 2,
-    title: 'Описание задачи 3',
-    description: 'Текст задачи 3',
-  },
-  {
-    id: 3,
-    title: 'Описание задачи 4',
-    description: 'Текст задачи 4',
-  },
-];
+import { ToastService } from 'src/app/services/toast.service';
+import { TodoListItemService } from 'src/app/services/todo-list-item.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -32,11 +11,17 @@ const dummyItems: TodoListItem[] = [
 export class TodoListComponent implements OnInit {
   items: TodoListItem[] = [];
   selectedItemId: TodoListItemId | null = null;
+  inlineEditedItemId?: TodoListItemId | null = null;
   isLoading = true;
+
+  constructor(
+    private todoListItemService: TodoListItemService,
+    private toastsService: ToastService,
+  ) {}
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.items = dummyItems;
+      this.items = this.todoListItemService.getItems();
       this.isLoading = false;
     }, 500);
   }
@@ -49,30 +34,42 @@ export class TodoListComponent implements OnInit {
     return this.items.find(item => item.id === this.selectedItemId) || null;
   }
 
-  selectItem(itemId: TodoListItemId): void {
-    this.selectedItemId = itemId;
+  selectItem(id: TodoListItemId): void {
+    this.selectedItemId = id;
   }
 
   unselectItem(): void {
     this.selectedItemId = null;
   }
 
-  createItem(data: TodoListItemInput): void {
-    let maxId = (this.items[0]?.id || 0);
-    this.items.forEach(item => maxId = item.id > maxId ? item.id : maxId);
-
-    this.items.push({
-      id: maxId + 1,
-      title: data.title,
-      description: data.description,
-    });
+  showInlineEditItem(id: TodoListItemId): void {
+    this.inlineEditedItemId = id;
   }
 
-  deleteItem(itemId: TodoListItemId): void {
-    this.items = this.items.filter(item => item.id !== itemId);
+  hideInlineEditItem(): void {
+    this.inlineEditedItemId = null;
+  }
 
-    if (this.selectedItemId === itemId) {
-      this.unselectItem();
+  createItem(data: TodoListItemInput): void {
+    const item = this.todoListItemService.create(data);
+
+    if (item) {
+      this.items.push(item);
+      this.toastsService.showToast('Создано', item.id);
+    }
+  }
+
+  deleteItem(id: TodoListItemId): void {
+    const isDeleted = this.todoListItemService.delete(id);
+
+    if (isDeleted) {
+      this.items = this.items.filter(item => item.id !== id);
+
+      if (this.selectedItemId === id) {
+        this.unselectItem();
+      }
+
+      this.toastsService.showToast('Удалено', id);
     }
   }
 }

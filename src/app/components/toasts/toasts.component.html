@@ -1,0 +1,6 @@
+<ul class="toasts">
+  <li class="toast" (click)="removeToast(toast.id)" *ngFor="let toast of getToasts()">
+    <b class="toast__title">{{toast.title}}</b>
+    <span class="toast__message">{{toast.message}}</span>
+  </li>
+</ul>

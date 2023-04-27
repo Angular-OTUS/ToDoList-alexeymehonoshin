@@ -1,0 +1,12 @@
+.inline-edit {
+  display: flex;
+  justify-content: space-between;
+
+  &__title {
+    overflow-x: hidden;
+    margin-right: 10px;
+    margin-left: 16px;
+    padding: 5px;
+    width: 50%;
+  }
+}
