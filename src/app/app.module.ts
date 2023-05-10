@@ -23,6 +23,13 @@ import {
 } from './components/index';
 
 @NgModule({
+  declarations: [
+    AppComponent,
+    TodoListComponent,
+    TodoListItemComponent,
+    TodoListItemNewComponent,
+    TodoListItemTitleEditComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -35,13 +42,6 @@ import {
     MatSelectModule,
     MatCheckboxModule,
     SharedModule,
-  ],
-  declarations: [
-    AppComponent,
-    TodoListComponent,
-    TodoListItemComponent,
-    TodoListItemNewComponent,
-    TodoListItemTitleEditComponent,
   ],
   providers: [],
   bootstrap: [

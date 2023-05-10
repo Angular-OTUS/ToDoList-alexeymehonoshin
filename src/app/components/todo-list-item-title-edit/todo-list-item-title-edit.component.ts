@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { TodoListItem } from 'src/app/interfaces/todo-list-item.interface';
-import { todoListItemConsts } from 'src/app/consts/todo-list-item.consts';
+import { todoListItemValidation as validation } from 'src/app/consts/todo-list-item.consts';
 
 @Component({
   selector: 'app-todo-list-item-title-edit',
@@ -14,6 +14,6 @@ export class TodoListItemTitleEditComponent {
   isValid(): boolean {
     const title = this.title.trim();
     
-    return !(title.length < todoListItemConsts.validations.title.minLength || title.length > todoListItemConsts.validations.title.maxLength);
+    return !(title.length < validation.title.minLength || title.length > validation.title.maxLength);
   }
 }

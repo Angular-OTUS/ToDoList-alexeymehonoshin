@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { TodoListItemInput } from '../../interfaces/todo-list-item.interface';
 import { NgForm } from '@angular/forms';
-import { todoListItemConsts } from 'src/app/consts/todo-list-item.consts';
+import { todoListItemValidation } from 'src/app/consts/todo-list-item.consts';
 
 @Component({
   selector: 'app-todo-list-item-new',
@@ -11,16 +11,16 @@ import { todoListItemConsts } from 'src/app/consts/todo-list-item.consts';
 export class TodoListItemNewComponent {
   item: Omit<TodoListItemInput, 'status'> = {
     title: '',
-    description: ''
+    description: '',
   };
-  validations = todoListItemConsts.validations;
+  validation = todoListItemValidation;
 
   @Output() itemCreated = new EventEmitter<TodoListItemInput>();
 
   onSubmit(form: NgForm) {
     if (form.invalid) return;
     
-    this.itemCreated.emit(form.value)
+    this.itemCreated.emit(form.value);
     this.clearValues(form);
   }
 

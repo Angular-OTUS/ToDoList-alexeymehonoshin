@@ -12,7 +12,6 @@ import { ToastsComponent } from './components/toasts.component';
   exports: [
     ToastsComponent,
   ],
-  providers: [
-  ]
+  providers: [],
 })
 export class ToastsModule { }

@@ -20,6 +20,6 @@ import { ToastsModule } from '../toasts/toats.module';
     TooltipDirective,
     ToastsModule,
   ],
-  providers: []
+  providers: [],
 })
 export class SharedModule { }
