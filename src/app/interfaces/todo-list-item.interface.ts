@@ -1,10 +1,13 @@
-import { TodoListItemStatuses } from 'src/app/enums/todo-list-item-statuses.enum';
+export enum TodoListItemStatus {
+  InProgress = 'in-progress',
+  Completed = 'completed',
+}
 
 export interface TodoListItem {
   id: string;
   title: string;
   description: string;
-  status: TodoListItemStatuses;
+  status: TodoListItemStatus;
 }
 
 export type TodoListItemId = TodoListItem['id'];

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ToastService } from '../../services/toast.service';
-import { Toast } from '../../interfaces/toast.interface';
+import { ToastService } from '../services/toast.service';
+import { Toast } from '../interfaces/toast.interface';
 
 @Component({
   selector: 'app-toasts',
@@ -16,7 +16,7 @@ export class ToastsComponent {
     return this.toastService.getToasts();
   }
 
-  removeToast(id: string) {
+  removeToast(id: Toast['id']) {
     this.toastService.removeToast(id);
   }
 }

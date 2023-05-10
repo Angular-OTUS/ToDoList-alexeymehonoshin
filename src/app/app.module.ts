@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SharedModule } from './modules/shared/shared.module';
 
 import { AppComponent } from './app.component';
@@ -20,18 +20,9 @@ import {
   TodoListItemComponent,
   TodoListItemNewComponent,
   TodoListItemTitleEditComponent,
-  ToastsComponent,
 } from './components/index';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TodoListComponent,
-    TodoListItemComponent,
-    TodoListItemNewComponent,
-    TodoListItemTitleEditComponent,
-    ToastsComponent,
-  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -44,6 +35,13 @@ import {
     MatSelectModule,
     MatCheckboxModule,
     SharedModule,
+  ],
+  declarations: [
+    AppComponent,
+    TodoListComponent,
+    TodoListItemComponent,
+    TodoListItemNewComponent,
+    TodoListItemTitleEditComponent,
   ],
   providers: [],
   bootstrap: [

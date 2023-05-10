@@ -1,11 +1,15 @@
 <form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
   <mat-form-field appearance="outline">
     <mat-label>Описание</mat-label>
-    <input matInput [(ngModel)]="title" name="title" required minlength=1 maxlength=10/>
+    <input matInput [(ngModel)]="item.title" name="title" required
+           minlength={{validations.title.minLength}}
+           maxlength={{validations.title.maxLength}}/>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <textarea matInput placeholder="Текст" [(ngModel)]="description" name="description" required minlength=1 maxlength=500></textarea>
+    <textarea matInput placeholder="Текст" [(ngModel)]="item.description" name="description" required
+              minlength={{validations.description.minLength}}
+              maxlength={{validations.description.maxLength}}></textarea>
   </mat-form-field>
 
   <app-button color="primary" [disabled]="form.invalid" [tooltip]="'Добавить новую задачу в список'">Добавить</app-button>

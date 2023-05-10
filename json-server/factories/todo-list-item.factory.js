@@ -1,7 +1,7 @@
 const uuid = require('uuid');
 
 module.exports = class TodoListItemFactory {
-  #statuses = ['InProgress', 'Completed'];
+  #statuses = ['in-progress', 'completed'];
 
   create(count = 0) {
     const items = [];

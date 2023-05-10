@@ -1,4 +1,4 @@
 <div class="inline-edit">
   <input class="inline-edit__title" type="text" [(ngModel)]="title">
-  <app-button color="primary" (click)="onTitleUpdate()" [disabled]="!isValid()" [tooltip]="'Обновить описание задачи'">Сохранить</app-button>
+  <app-button color="primary" (click)="this.titleUpdated.emit(this.title)" [disabled]="!isValid()" tooltip="Обновить описание задачи">Сохранить</app-button>
 </div>

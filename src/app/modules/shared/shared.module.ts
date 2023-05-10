@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent, SpinnerComponent, TooltipComponent } from './components/index';
 import { TooltipDirective } from './directives/index';
+import { ToastsModule } from '../toasts/toats.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,8 @@ import { TooltipDirective } from './directives/index';
     ButtonComponent,
     SpinnerComponent,
     TooltipDirective,
+    ToastsModule,
   ],
+  providers: []
 })
 export class SharedModule { }

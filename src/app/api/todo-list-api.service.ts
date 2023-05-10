@@ -17,19 +17,19 @@ export class TodoListApiService {
     private httpClient: HttpClient,
   ) {}
 
-  getItems$(params = {}): Observable<TodoListItem[]> {
+  getItems(params = {}): Observable<TodoListItem[]> {
     return this.httpClient.get<TodoListItem[]>(`${this.API_HOST}/items`, { params });
   }
 
-  updateItem$(id: ItemId, data: UpdatedFields): Observable<TodoListItem> {
+  updateItem(id: ItemId, data: UpdatedFields): Observable<TodoListItem> {
     return this.httpClient.put<TodoListItem>(`${this.API_HOST}/items/${id}`, data);
   }
 
-  deleteItem$(id: ItemId): Observable<void> {
+  deleteItem(id: ItemId): Observable<void> {
     return this.httpClient.delete<void>(`${this.API_HOST}/items/${id}`);
   }
 
-  createItem$(data: CreatedFields): Observable<TodoListItem> {
+  createItem(data: CreatedFields): Observable<TodoListItem> {
     return this.httpClient.post<TodoListItem>(`${this.API_HOST}/items`, data);
   }
 }
