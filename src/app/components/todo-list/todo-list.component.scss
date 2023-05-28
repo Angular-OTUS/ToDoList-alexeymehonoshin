@@ -1,7 +1,10 @@
 :host {
   display: flex;
-  justify-content: center;
-  max-height: 530px;
+  height: 100vh;
+
+  mat-card-header {
+    flex-direction: column;
+  }
 
   mat-card-content {
     overflow: scroll;
@@ -10,12 +13,13 @@
   }
 
   .todo-list {
-    width: 300px;
+    max-width: 350px;
 
     mat-card {
       &-content {
         padding-right: 0px;
         padding-left: 0px;
+        height: 100%;
 
         mat-list-item {
           padding: 5px 0px;
@@ -30,8 +34,8 @@
   }
 
   .todo-list__details {
-    width: 400px;
     padding-bottom: 16px;
+    width: 100%;
 
     mat-card {
       &-header {

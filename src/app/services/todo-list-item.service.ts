@@ -1,68 +1,50 @@
 import { Injectable } from '@angular/core';
-import { TodoListItem } from '../interfaces/todo-list-item.interface';
-import { v4 as uuid } from 'uuid';
-
-type ItemId = TodoListItem['id'];
+import { TodoListItem, TodoListItemInput, TodoListItemId, TodoListItemStatus } from '../interfaces/todo-list-item.interface';
+import { TodoListApiService } from '../api/todo-list-api.service';
+import { catchError, throwError, Observable } from 'rxjs';
+import { ToastService } from '../modules/toasts/services/toast.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoListItemService {
-  private items: TodoListItem[] = [
-    {
-      id: uuid(),
-      title: 'Описание задачи 1',
-      description: 'Текст задачи 1',
-    },
-    {
-      id: uuid(),
-      title: 'Очень длинное описание задачи 2',
-      description: 'Текст задачи 2 Очень длинное описание задачи, отображающееся на нескольких строчках',
-    },
-    {
-      id: uuid(),
-      title: 'Описание задачи 3',
-      description: 'Текст задачи 3',
-    },
-    {
-      id: uuid(),
-      title: 'Описание задачи 4',
-      description: 'Текст задачи 4',
-    },
-  ];
+  constructor(
+    private todoListApiService: TodoListApiService,
+    private toastsService: ToastService,
+  ) {}
 
-  getItems(): TodoListItem[] {
-    return this.items;
+  getAll(status: TodoListItemStatus | null = null): Observable<TodoListItem[]> {
+    const params = status ? { status } : {};
+
+    return this.todoListApiService.getItems(params).pipe(catchError((resp) => this.handleError(resp)));
   }
 
-  update(id: ItemId, title: string): TodoListItem | undefined {
-    const item = this.items.find(item => item.id === id);
+  update(item: TodoListItem): Observable<TodoListItem> {
+    return this.todoListApiService.updateItem(item.id, item).pipe(catchError((resp) => this.handleError(resp)));
+  }
 
-    if (item) {
-      item.title = title;
-      return item;
+  delete(id: TodoListItemId): Observable<void> {
+    return this.todoListApiService.deleteItem(id).pipe(catchError((resp) => this.handleError(resp)))
+  }
+
+  create(data: Omit<TodoListItemInput, 'status'>): Observable<TodoListItem> {
+    const status = TodoListItemStatus.InProgress;
+
+    return this.todoListApiService.createItem({ ...data, status }).pipe(catchError((resp) => this.handleError(resp)));
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    let message = '';
+
+    switch(error.status) {
+      case 404: message = 'Задача не найдена';
+      break;
+      default: message = error.message;
     }
 
-    return undefined;
-  }
+    this.toastsService.showFailureToast(message);
 
-  delete(id: ItemId): boolean {
-    if (!this.items.find(item => item.id === id)) return false;
-
-    this.items = this.items.filter(item => item.id !== id);
-
-    return true;
-  }
-
-  create(data: Omit<TodoListItem, 'id'>): TodoListItem {
-    const item = {
-      id: uuid(),
-      title: data.title,
-      description: data.description,
-    };
-
-    this.items.push(item);
-
-    return item;
+    return throwError(() => error);
   }
 }

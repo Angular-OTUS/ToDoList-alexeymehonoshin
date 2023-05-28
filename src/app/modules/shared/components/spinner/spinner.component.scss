@@ -2,18 +2,16 @@
   $circle-size: 40px;
   $circle-stroke-color: #3f3f3f;
 
-  .circle {
-    height: $circle-size;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    width: $circle-size;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 
   .circle__svg {
     animation: 2s linear infinite both circle__svg;
+    height: $circle-size;
+    width: $circle-size;
   }
 
   @keyframes circle__svg {

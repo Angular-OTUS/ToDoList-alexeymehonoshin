@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoListItem, TodoListItemId, TodoListItemInput } from '../../interfaces/todo-list-item.interface';
-import { ToastService } from 'src/app/services/toast.service';
+import { TodoListItem, TodoListItemId, TodoListItemInput, TodoListItemStatus } from '../../interfaces/todo-list-item.interface';
 import { TodoListItemService } from 'src/app/services/todo-list-item.service';
+import { ToastService } from 'src/app/modules/toasts/services';
 
 @Component({
   selector: 'app-todo-list',
@@ -11,8 +11,9 @@ import { TodoListItemService } from 'src/app/services/todo-list-item.service';
 export class TodoListComponent implements OnInit {
   items: TodoListItem[] = [];
   selectedItemId: TodoListItemId | null = null;
-  inlineEditedItemId?: TodoListItemId | null = null;
   isLoading = true;
+  filterByStatus: TodoListItemStatus | null = null;
+  statuses = TodoListItemStatus;
 
   constructor(
     private todoListItemService: TodoListItemService,
@@ -20,9 +21,16 @@ export class TodoListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadTodoListItems();
+  }
+
+  loadTodoListItems() {
+    this.isLoading = true;
     setTimeout(() => {
-      this.items = this.todoListItemService.getItems();
-      this.isLoading = false;
+      this.todoListItemService.getAll(this.filterByStatus).subscribe(items => {
+        this.isLoading = false;
+        this.items = items;
+      });
     }, 500);
   }
 
@@ -34,42 +42,26 @@ export class TodoListComponent implements OnInit {
     return this.items.find(item => item.id === this.selectedItemId) || null;
   }
 
-  selectItem(id: TodoListItemId): void {
+  selectItem(id: TodoListItemId | null): void {
     this.selectedItemId = id;
   }
 
-  unselectItem(): void {
-    this.selectedItemId = null;
-  }
-
-  showInlineEditItem(id: TodoListItemId): void {
-    this.inlineEditedItemId = id;
-  }
-
-  hideInlineEditItem(): void {
-    this.inlineEditedItemId = null;
-  }
-
-  createItem(data: TodoListItemInput): void {
-    const item = this.todoListItemService.create(data);
-
-    if (item) {
-      this.items.push(item);
-      this.toastsService.showToast('Создано', item.id);
-    }
+  createItem(data: Omit<TodoListItemInput, 'status'>): void {
+    this.todoListItemService.create(data)
+      .subscribe(item => {
+        this.items.push(item);
+        this.toastsService.showSuccessToast('Задача добавлена');
+      });
   }
 
   deleteItem(id: TodoListItemId): void {
-    const isDeleted = this.todoListItemService.delete(id);
-
-    if (isDeleted) {
-      this.items = this.items.filter(item => item.id !== id);
-
-      if (this.selectedItemId === id) {
-        this.unselectItem();
-      }
-
-      this.toastsService.showToast('Удалено', id);
-    }
+    this.todoListItemService.delete(id)
+      .subscribe(() => {
+        this.items = this.items.filter(item => item.id !== id);
+        if (this.selectedItemId === id) {
+          this.selectItem(null);
+        }
+        this.toastsService.showSuccessToast('Задача удалена');
+      });
   }
 }

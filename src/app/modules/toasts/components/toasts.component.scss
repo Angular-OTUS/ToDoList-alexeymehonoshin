@@ -1,3 +1,6 @@
+
+@import '../../../styles/colors.scss';
+
 .toasts {
   position: fixed;
   top: 0px;
@@ -7,7 +10,7 @@
   .toast {
     padding: 15px;
     margin-bottom: 5px;
-    background: #25D500;
+    border-radius: 10px;
     color: white;
     width: 150px;
     height: 40px;
@@ -16,6 +19,14 @@
     flex-direction: column;
 
     cursor: pointer;
+
+    &.success {
+      background: $color-green-medium;
+    }
+
+    &.failure {
+      background: $color-red-medium;
+    }
 
     &:hover {
       opacity: 0.8;

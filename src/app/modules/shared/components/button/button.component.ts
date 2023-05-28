@@ -10,6 +10,6 @@ type ButtonTypes = 'link' | 'flat';
 })
 export class ButtonComponent {
   @Input() color: ButtonColors = 'basic';
-  @Input() disabled = false;
+  @Input() disabled: boolean | null = false;
   @Input() type: ButtonTypes = 'flat';
 }

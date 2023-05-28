@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { TodoListItemInput } from '../../interfaces/todo-list-item.interface';
+import { NgForm } from '@angular/forms';
+import { todoListItemValidation } from 'src/app/consts/todo-list-item.consts';
 
 @Component({
   selector: 'app-todo-list-item-new',
@@ -7,44 +9,24 @@ import { TodoListItemInput } from '../../interfaces/todo-list-item.interface';
   styleUrls: ['./todo-list-item-new.component.scss'],
 })
 export class TodoListItemNewComponent {
-  title = '';
-  description = '';
+  item: Omit<TodoListItemInput, 'status'> = {
+    title: '',
+    description: '',
+  };
+  validation = todoListItemValidation;
 
   @Output() itemCreated = new EventEmitter<TodoListItemInput>();
 
-  onCreate() {
-    this.itemCreated.emit({
-      title: this.title.trim(),
-      description: this.description.trim(),
-    });
-    this.title = '';
-    this.description = '';
-  }
-
-  isValid(): boolean {
-    return this.isTitleValid() && this.isDescriptionValid();
-  }
-
-  private minTitleLength = 1;
-  private maxTitleLength = 100;
-  private minDescriptionLength = 1;
-  private maxDescriptionLength = 500;
-
-  private isDescriptionValid(): boolean {
-    const description = this.description.trim();
+  onSubmit(form: NgForm) {
+    if (form.invalid) return;
     
-    if (description.length < this.minDescriptionLength) return false;
-    if (description.length > this.maxDescriptionLength) return false;
-
-    return true;
+    this.itemCreated.emit(form.value);
+    this.clearValues(form);
   }
 
-  private isTitleValid(): boolean {
-    const title = this.title.trim();
-    
-    if (title.length < this.minTitleLength) return false;
-    if (title.length > this.maxTitleLength) return false;
-
-    return true
+  private clearValues(form: NgForm) {
+    this.item.title = '';
+    this.item.description = '';
+    form.resetForm();
   }
 }

@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { ToastService } from 'src/app/services/toast.service';
+import { ToastService } from 'src/app/modules/toasts/services';
+import { TodoListItem, TodoListItemId, TodoListItemStatus } from '../../interfaces/todo-list-item.interface';
 import { TodoListItemService } from 'src/app/services/todo-list-item.service';
-import { TodoListItem, TodoListItemId } from '../../interfaces/todo-list-item.interface';
 
 @Component({
   selector: 'app-todo-list-item',
@@ -9,13 +9,12 @@ import { TodoListItem, TodoListItemId } from '../../interfaces/todo-list-item.in
   styleUrls: ['./todo-list-item.component.scss'],
 })
 export class TodoListItemComponent {
+  isTitleEditing = false;
+
   @Input() item!: TodoListItem;
   @Input() isSelected = false;
 
-  @Input() isInlineEdited = false;
-
   @Output() itemDeleted = new EventEmitter<TodoListItemId>();
-  @Output() itemInlineUpdated = new EventEmitter();
 
   constructor(
     private todoListItemService: TodoListItemService,
@@ -23,20 +22,33 @@ export class TodoListItemComponent {
   ) {}
 
   onDelete(id: TodoListItemId): void {
-    console.log('TodoListItemComponent#onDelete', id)
     this.itemDeleted.emit(id);
   }
 
-  onInlineUpdate(title: TodoListItem['title']): void {
-    if (this.item.title !== title) {
-      const item = this.todoListItemService.update(this.item.id, title);
-  
-      if (item) {
+  updateTitle(title: TodoListItem['title']): void {
+    this.toggleTitleEditing(false);
+    this.todoListItemService.update({ ...this.item, title })
+      .subscribe(item => {
         this.item.title = item.title;
-        this.toastsService.showToast('Обновлено', this.item.id);
-      }
-    }
+        this.toastsService.showSuccessToast('Описание обновлено');
+      });
+  }
 
-    this.itemInlineUpdated.emit();
+  toggleStatus(): void {
+    const status = this.isCompleted() ? TodoListItemStatus.InProgress : TodoListItemStatus.Completed;
+
+    this.todoListItemService.update({ ...this.item, status })
+      .subscribe(item => {
+        this.item.status = item.status;
+        this.toastsService.showSuccessToast('Статус обновлён');
+      });
+  }
+
+  isCompleted(): boolean {
+    return this.item.status === TodoListItemStatus.Completed;
+  }
+
+  toggleTitleEditing(value = !this.isTitleEditing): void {
+    this.isTitleEditing = value;
   }
 }
